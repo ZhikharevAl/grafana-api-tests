@@ -1,27 +1,22 @@
-# Script summarize for prject
+# Script summarize for project
 /python_summary/
-
-#src file in CypressTests
-/Main.ts
 
 /.idea/
 # Python cache folders
-PythonTests/__pycache__
-PythonTests/services/__pycache__
-PythonTests/tests/__pycache__
+*.pyc
+__pycache__/
 
-#Virtual python env
+# uv
+.venv/
+.python-version
+
 venv/
 
-#Python cache files
-*.pyc
-
 #JSONs
-
 /data/dashboards.json
 /data/users.json
 /data/organizations.json
 
-#Allure 
-
+#Allure
 /allure-results
+/allure-report
