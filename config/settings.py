@@ -1,29 +1,29 @@
 import os
+from pathlib import Path
 
-BASE_DIR = os.environ.get("GITHUB_WORKSPACE", os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+project_root = Path(__file__).parent.parent.resolve()
 
-DATA_DIR = os.path.join(BASE_DIR, 'data')
+BASE_DIR = Path(os.environ.get("GITHUB_WORKSPACE", project_root))
 
-# If GRAFANA_DB_PATH == true then use this variable
-DB_PATH = os.environ.get("GRAFANA_DB_PATH")
+DATA_DIR = BASE_DIR / "data"
 
-if not DB_PATH:
-    # if not - local path on Windows
-    TESTS_ROOT = os.path.dirname(os.path.abspath(__file__))
-    DB_PATH = os.path.abspath(
-        os.path.join(TESTS_ROOT, '..', '..', 'Mygrafana', 'Mygrafana', 'data', 'grafana.db')
-    )
+DB_PATH_STR = os.environ.get("GRAFANA_DB_PATH")
 
-USERS_PATH = os.path.join(DATA_DIR, 'users.json')
-DASHBOARDS_PATH = os.path.join(DATA_DIR, 'dashboards.json')
-ORGANIZATIONS_PATH = os.path.join(DATA_DIR, 'organizations.json')
+if not DB_PATH_STR:
+    DB_PATH = (BASE_DIR / "Mygrafana" / "Mygrafana" / "data" / "grafana.db").resolve()
+else:
+    DB_PATH = Path(DB_PATH_STR)
 
-USERS_TEMPLATE_PATH = os.path.join(DATA_DIR, 'users.template.json')
-DASHBOARDS_TEMPLATE_PATH = os.path.join(DATA_DIR, 'dashboards.template.json')
-ORGANIZATIONS_TEMPLATE_PATH = os.path.join(DATA_DIR, 'organizations.template.json')
+
+USERS_PATH = DATA_DIR / "users.json"
+DASHBOARDS_PATH = DATA_DIR / "dashboards.json"
+ORGANIZATIONS_PATH = DATA_DIR / "organizations.json"
+
+USERS_TEMPLATE_PATH = DATA_DIR / "users.template.json"
+DASHBOARDS_TEMPLATE_PATH = DATA_DIR / "dashboards.template.json"
+ORGANIZATIONS_TEMPLATE_PATH = DATA_DIR / "organizations.template.json"
+
 
 BASE_URL = os.getenv("GRAFANA_BASE_URL", "http://localhost:3000")
-BASIC_AUTH = ("admin","admin")
-LOW_ACCESS = ("LowAccess","test")
-
-
+BASIC_AUTH = ("admin", "admin")
+LOW_ACCESS = ("LowAccess", "test")
